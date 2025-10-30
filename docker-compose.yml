@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Servicio de la aplicación web (Laravel + Apache)
+  app:
+    build: .
+    container_name: pos_app
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=true
+      - APP_KEY=base64:Ae9iUxZnaXxqJ2BIMaRFpuTgBE9unMqy5WDoO2VOPS8=
+    volumes:
+      - .:/var/www/html
+      - ./docker/apache.conf:/etc/apache2/sites-available/000-default.conf
+    networks:
+      - pos_network
+
+  # Servicio de base de datos MariaDB
+  database:
+    image: mariadb:10.11
+    container_name: pos_database
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword  
+      - MYSQL_DATABASE=sales1
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3308:3306"
+    networks:
+      - pos_network
+
+networks:
+  pos_network:
+    driver: bridge
+
+volumes:
+  db_data:

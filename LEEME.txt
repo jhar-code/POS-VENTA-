@@ -1,0 +1,61 @@
+=================================================
+            SISTEMA POS - LARAVEL 10
+            Desarrollado por: Jose Díaz
+            Benedick Aparicio, Yamir Grajales,
+            carolayne Rojas, Candido Palacio
+=================================================
+
+📋 DESCRIPCIÓN:
+Sistema de punto de venta desarrollado en Laravel 10 
+con funcionalidades completas de ventas, inventario, 
+clientes, proveedores y reportes.
+
+🚀 INSTRUCCIONES DE INSTALACIÓN:
+
+1. REQUISITOS PREVIOS:
+   - Descargar e instalar Docker Desktop desde:
+     https://www.docker.com/get-started
+   - Reiniciar la computadora después de instalar Docker
+
+2. EJECUCIÓN DEL SISTEMA:
+   - Windows: Doble clic en "start.bat"
+   - Linux/Mac: Ejecutar en terminal: ./start.sh
+   - Esperar 2-3 minutos para inicialización completa
+
+3. ACCESO AL SISTEMA:
+   - URL: http://localhost:8080
+   - Usuario Administrador: administrador@gmail.com
+   - Contraseña: password
+   - Usuario Vendedor: jhared@gmail.com
+   - Contraseña: password
+
+4. FUNCIONALIDADES INCLUIDAS:
+   ✅ Gestión de productos y categorías
+   ✅ Ventas y punto de venta
+   ✅ Control de inventario
+   ✅ Gestión de clientes y proveedores
+   ✅ Compras y cotizaciones
+   ✅ Reportes y estadísticas
+   ✅ Múltiples usuarios con permisos
+   ✅ Cierre de caja
+
+5. PARA DETENER EL SISTEMA:
+   - Cerrar la ventana de comandos
+   - O ejecutar: docker-compose down
+
+6. PARA ELIMINAR COMPLETAMENTE:
+   - Borrar la carpeta del proyecto
+   - Los datos se eliminan automáticamente
+
+⚠️ NOTAS IMPORTANTES:
+- No es necesario instalar XAMPP, Laragon o PHP
+- El sistema funciona de forma aislada con Docker
+- Los datos de demostración son reales del desarrollo
+- El puerto 8080 debe estar disponible
+
+📞 SOPORTE:
+En caso de problemas, contactar a: j.jhared.09@gmail.com
+
+=================================================
+         ¡GRACIAS POR EVALUAR EL SISTEMA!
+=================================================
