@@ -9,28 +9,61 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: sales_test # 👈 Usa 'sales_test' para testing
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
-    - name: Checkout del repositorio
-      uses: actions/checkout@v2
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
 
-    - name: Configurar entorno PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2.6'
-        extensions: mbstring, xml
-        coverage: none
+      - name: Configurar entorno PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, mysqlnd, bcmath, gd, zip
+          coverage: none
 
-    - name: Instalar Dependencias
-      run: composer install --prefer-dist --no-scripts --no-progress --no-suggest
+      - name: Esperar a que MySQL esté listo
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"3306" -uroot -ppassword --silent; do
+            sleep 1
+          done
 
-    - name: Copiar archivo .env.example a .env
-      run: cp .env.example .env
+      - name: Crear base de datos de prueba
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -uroot -ppassword -e "CREATE DATABASE IF NOT EXISTS sales_test;"
 
-    - name: Generar clave de aplicación
-      run: php artisan key:generate
+      - name: Instalar Dependencias
+        run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
 
-    - name: Verificar dependencias seguras
-      run: composer require --dev roave/security-advisories:dev-latest --no-update
+      - name: Copiar archivo .env.example a .env
+        run: cp .env.example .env
 
-    - name: Ejecutar Pruebas
-      run: vendor/bin/phpunit --testsuite Feature
+      - name: Generar clave de aplicación
+        run: php artisan key:generate
+
+      - name: Configurar entorno de testing
+        run: |
+          echo "APP_ENV=testing" >> .env
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=127.0.0.1" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=sales1_test" >> .env 
+          echo "DB_USERNAME=root" >> .env
+          echo "DB_PASSWORD=password" >> .env
+          echo "SESSION_DRIVER=array" >> .env
+          echo "CACHE_DRIVER=array" >> .env
+          echo "QUEUE_CONNECTION=sync" >> .env
+
+      - name: Ejecutar migraciones
+        run: php artisan migrate --force
+
+      - name: Ejecutar Pruebas
+        run: vendor/bin/phpunit --verbose --testsuite Feature
