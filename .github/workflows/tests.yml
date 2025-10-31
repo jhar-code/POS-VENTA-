@@ -1,86 +1,36 @@
-name: Laravel Tests
+name: Run PHP Test
 
 on:
   push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  laravel-tests:
+  test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: laravel_test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      redis:
-        image: redis:alpine
-        ports:
-          - 6379:6379
-        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout del repositorio
+      uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql, mysqlnd, bcmath, gd, zip
-          coverage: xdebug
+    - name: Configurar entorno PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2.6'
+        extensions: mbstring, xml
+        coverage: none
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate --strict
+    - name: Instalar Dependencias
+      run: composer install --prefer-dist --no-scripts --no-progress --no-suggest
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
+    - name: Copiar archivo .env.example a .env
+      run: cp .env.example .env
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+    - name: Generar clave de aplicación
+      run: php artisan key:generate
 
-      - name: Copy environment file
-        run: cp .env.example .env.test
+    - name: Verificar dependencias seguras
+      run: composer require --dev roave/security-advisories:dev-latest --no-update
 
-      - name: Generate app key
-        run: php artisan key:generate --env=test
-
-      - name: Create database
-        run: |
-          mysql --host 127.0.0.1 --port 3306 -uroot -ppassword -e "CREATE DATABASE IF NOT EXISTS laravel_test;"
-
-      - name: Execute tests via PHPUnit
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: laravel_test
-          DB_USERNAME: root
-          DB_PASSWORD: password
-          REDIS_HOST: 127.0.0.1
-          REDIS_PORT: 6379
-        run: |
-          php artisan config:clear
-          php artisan cache:clear
-          php artisan migrate --env=test --force
-          vendor/bin/phpunit --coverage-text --colors=never
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: test-results
-          path: storage/logs/
+    - name: Ejecutar Pruebas
+      run: vendor/bin/phpunit --testsuite Feature
