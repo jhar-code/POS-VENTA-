@@ -38,7 +38,7 @@
             <li class="menu-header">Dashboard</li>
             <li class="dropdown {{ Route::is('dashboard') ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}" class="nav-link">
-                    <img src="{{ asset('img/home/home.png') }}" width="30" class="mr-2" alt="">
+                    <i class="fas fa-fire"></i>
                         <span>Dashboard</span></a>
             </li>
 
@@ -47,7 +47,7 @@
                     class="dropdown {{ Route::is('usuarios.index') || Route::is('formas.index') || Route::is('compania.index') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                         {{-- <i class="fas fa-cogs"></i> --}}
-                        <img src="{{ asset('img/home/setting.png') }}" width="30" class="mr-2" alt="">
+                        <i class="fas fa-cogs"></i>
                         <span>Administración</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -71,7 +71,7 @@
             @can('clientes.index')
                 <li class="{{ Route::is('clientes.index') ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('clientes.index') }}">
-                        <img src="{{ asset('img/home/clientes.png') }}" width="30" class="mr-2" alt="">
+                        <i class="fas fa-users"></i>
                         <span>Clientes</span></a>
                 </li>
             @endcan
@@ -79,7 +79,7 @@
             @can('proveedores.index')
                 <li class="{{ Route::is('proveedores.index') ? 'active' : '' }}"><a class="nav-link"
                         href="{{ route('proveedores.index') }}">
-                        <img src="{{ asset('img/home/proveedor.png') }}" width="30" class="mr-2" alt="">
+                        <i class="fas fa-truck"></i>
                         <span>Proveedores</span></a>
                 </li>
             @endcan
@@ -88,7 +88,7 @@
                 <li
                     class="dropdown {{ Route::is('cajas.index') || Route::is('gastos.index') || Route::is('movimientos.index') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown">
-                        <img src="{{ asset('img/home/dinero.png') }}" width="30" class="mr-2" alt="">
+                        <i class="fas fa-cash-register"></i>
                         <span>Cajas</span></a>
                     <ul class="dropdown-menu">
                         @can('cajas.index')
@@ -107,7 +107,7 @@
 
             @can(['categorias.index', 'productos.index'])
                 <li class="dropdown {{ Route::is('categorias.index') || Route::is('productos.index') ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><img src="{{ asset('img/home/productos.png') }}" width="30" class="mr-2" alt="">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-box"></i>
                         <span>Artículos</span></a>
                     <ul class="dropdown-menu">
                         @can('categorias.index')
@@ -125,7 +125,7 @@
                 <li
                     class="dropdown {{ Route::is('venta.index') || Route::is('venta.show') || Route::is('creditoventa.index') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown">
-                        <img src="{{ asset('img/home/ventas.png') }}" width="30" class="mr-2" alt="">
+                        <i class="fas fa-shopping-cart"></i>
                         <span>Ventas</span></a>
                     <ul class="dropdown-menu">
                         @can('venta.index')
@@ -144,7 +144,7 @@
             @can(['cotizacion.index', 'cotizacion.show'])
                 <li class="dropdown {{ Route::is('cotizacion.index') || Route::is('cotizacion.show') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown">
-                        <img src="{{ asset('img/home/cotizacion.png') }}" width="30" class="mr-2" alt="">
+                        <i class="fas fa-file-invoice-dollar"></i>
                         <span>Cotizaciones</span></a>
                     <ul class="dropdown-menu">
                         @can('cotizacion.index')
@@ -160,7 +160,7 @@
             @can(['compra.index', 'compra.show'])
                 <li class="dropdown {{ Route::is('compra.index') || Route::is('compra.show') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown">
-                        <img src="{{ asset('img/home/compras.png') }}" width="30" class="mr-2" alt="">
+                        <i class="fas fa-shopping-bag"></i>
                         <span>Compras</span></a>
                     <ul class="dropdown-menu">
                         @can('compra.index')

@@ -328,3 +328,49 @@ hr {
 .btn-secondary{
     box-shadow: none;
 }
+
+/* Sidebar Modern Redesign */
+.main-sidebar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+    border-right: 1px solid #f4f6f9;
+}
+
+.sidebar-menu li a {
+    color: #6c757d;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #f8f9fa;
+    color: var(--pinkColor);
+}
+
+.sidebar-menu li.active > a {
+    background-color: var(--pinkColor);
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(85, 87, 243, 0.2);
+}
+
+.sidebar-menu li a i {
+    margin-right: 10px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.sidebar-brand {
+    padding: 20px 0;
+}
+
+.sidebar-brand a {
+    color: var(--titleColor);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

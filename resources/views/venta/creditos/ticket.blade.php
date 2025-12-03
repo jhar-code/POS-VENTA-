@@ -86,9 +86,9 @@
             <p>abono: {{ $abono->monto }}</p>
             <p>Fecha: {{ $abono->created_at }}</p>
             <p>Forma Pago: {{ $abono->formapago->nombre }}</p>
-            <h5>Abonado: {{ number_format($abonado, 2) }}</h5>
-            <h5>Restante: {{ number_format($abono->creditoventa->venta->total - $abonado, 2) }}</h5>
-            <h5>Total: {{ number_format($abono->creditoventa->venta->total, 2) }}</h5>
+            <h5>Abonado: $ {{ number_format($abonado, 2) }}</h5>
+            <h5>Restante: $ {{ number_format($abono->creditoventa->venta->total - $abonado, 2) }}</h5>
+            <h5>Total: $ {{ number_format($abono->creditoventa->venta->total, 2) }}</h5>
         </div>
     </div>
 </body>

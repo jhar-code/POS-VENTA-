@@ -21,6 +21,7 @@ use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserRolController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\TwoFactorAuthController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,8 +48,19 @@ Route::group(['prefix' => 'installer', 'as' => 'installer.'], function () {
 
 Route::middleware('auth')->group(function () {
 
+    // Configuración de 2FA
+    Route::get('/two-factor/setup', [TwoFactorAuthController::class, 'showSetupForm'])->name('2fa.setup');
+    Route::post('/two-factor/enable', [TwoFactorAuthController::class, 'enable'])->name('2fa.enable');
+    Route::get('/two-factor/verify', [TwoFactorAuthController::class, 'showVerificationForm'])->name('2fa.verify');
+    Route::post('/two-factor/verify', [TwoFactorAuthController::class, 'verify'])->name('2fa.verify.post');
+    Route::get('/two-factor/recovery-codes', [TwoFactorAuthController::class, 'showRecoveryCodes'])->name('2fa.recovery-codes');
+    Route::post('/two-factor/disable', [TwoFactorAuthController::class, 'disable'])->name('2fa.disable');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::middleware(['2fa'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -149,6 +161,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/reportes/ventas-usuario', [ReporteController::class, 'ventasPorUsuario'])->name('reportes.ventas_usuario');
     Route::get('/reportes/ventas-producto', [ReporteController::class, 'ventasPorProducto'])->name('reportes.ventas_producto');
     Route::get('/reportes/ventas-cliente', [ReporteController::class, 'ventasPorCliente'])->name('reportes.ventas_cliente');
+
+    });
 });
 
 require __DIR__ . '/auth.php';

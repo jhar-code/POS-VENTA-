@@ -19,40 +19,40 @@ class RolSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'dashboard'])->assignRole($role1);
 
         Permission::firstOrCreate(['name' => 'productos.index'])->syncRoles([$role1, $role2]);
-        Permission::firstOrCreate(['name' => 'productos.firstOrCreate'])->syncRoles([$role1, $role2]);
+        Permission::firstOrCreate(['name' => 'productos.create'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'productos.edit'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'productos.delete'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'productos.reportes'])->syncRoles([$role1, $role2]);
 
         Permission::firstOrCreate(['name' => 'categorias.index'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'categorias.edit'])->assignRole($role1);
-        Permission::firstOrCreate(['name' => 'categorias.firstOrCreate'])->syncRoles([$role1, $role2]);
+        Permission::firstOrCreate(['name' => 'categorias.create'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'categorias.delete'])->assignRole($role1);
 
         Permission::firstOrCreate(['name' => 'formas-pago.index'])->assignRole($role1);
-        Permission::firstOrCreate(['name' => 'formas-pago.firstOrCreate'])->assignRole($role1);
+        Permission::firstOrCreate(['name' => 'formas-pago.create'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'formas-pago.edit'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'formas-pago.delete'])->assignRole($role1);
 
         Permission::firstOrCreate(['name' => 'proveedores.index'])->assignRole($role1);
-        Permission::firstOrCreate(['name' => 'proveedores.firstOrCreate'])->assignRole($role1);
+        Permission::firstOrCreate(['name' => 'proveedores.create'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'proveedores.edit'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'proveedores.delete'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'proveedores.reportes'])->assignRole($role1);
 
         Permission::firstOrCreate(['name' => 'clientes.index'])->syncRoles([$role1, $role2]);
-        Permission::firstOrCreate(['name' => 'clientes.firstOrCreate'])->syncRoles([$role1, $role2]);
+        Permission::firstOrCreate(['name' => 'clientes.create'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'clientes.edit'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'clientes.delete'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'clientes.reportes'])->assignRole($role1);
 
         Permission::firstOrCreate(['name' => 'usuarios.index'])->assignRole($role1);
-        Permission::firstOrCreate(['name' => 'usuarios.firstOrCreate'])->assignRole($role1);
+        Permission::firstOrCreate(['name' => 'usuarios.create'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'usuarios.edit'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'usuarios.delete'])->assignRole($role1);
 
         Permission::firstOrCreate(['name' => 'gastos.index'])->syncRoles([$role1, $role2]);
-        Permission::firstOrCreate(['name' => 'gastos.firstOrCreate'])->syncRoles([$role1, $role2]);
+        Permission::firstOrCreate(['name' => 'gastos.create'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'gastos.edit'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'gastos.delete'])->assignRole($role1);
         Permission::firstOrCreate(['name' => 'gastos.reportes'])->assignRole($role1);
@@ -79,7 +79,7 @@ class RolSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'cotizacion.reportes'])->assignRole($role1);
 
         Permission::firstOrCreate(['name' => 'cajas.index'])->syncRoles([$role1, $role2]);
-        Permission::firstOrCreate(['name' => 'cajas.firstOrCreate'])->syncRoles([$role1, $role2]);
+        Permission::firstOrCreate(['name' => 'cajas.create'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'cajas.update'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'cajas.reportes'])->assignRole($role1);
 

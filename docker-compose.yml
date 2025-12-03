@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   # Servicio de la aplicación web (Laravel + Apache)
   app:
@@ -24,7 +23,7 @@ services:
     image: mariadb:10.11
     container_name: pos_database
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword  
+      - MYSQL_ROOT_PASSWORD=rootpassword
       - MYSQL_DATABASE=sales1
     volumes:
       - db_data:/var/lib/mysql

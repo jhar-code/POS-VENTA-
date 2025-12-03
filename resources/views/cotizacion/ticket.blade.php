@@ -106,7 +106,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">Total</td>
-                        <td><h4>{{ number_format($cotizacion->total, 2) }}</h4></td>
+                        <td><h4>$ {{ number_format($cotizacion->total, 2) }}</h4></td>
                     </tr>
                 </tfoot>
             </table>

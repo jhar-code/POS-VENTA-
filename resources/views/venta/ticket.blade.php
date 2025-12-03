@@ -94,7 +94,7 @@
                     <tr>
                         <td>{{ $producto->cantidad }}</td>
                         <td>{{ $producto->nombre_producto }}</td>
-                        <td class="text-right">{{ number_format($producto->precio, 2) }}</td>
+                        <td class="text-right">$ {{ number_format($producto->precio, 2) }}</td>
                     </tr>
                     <tr>
                         <td colspan="3">
@@ -120,15 +120,15 @@
             </tr>
             <tr>
                 <td><strong>Pago con</strong></td>
-                <td class="text-right">{{ number_format($venta->pago_con, 2) }}</td>
+                <td class="text-right">$ {{ number_format($venta->pago_con, 2) }}</td>
             </tr>
             <tr>
                 <td><strong>Cambio</strong></td>
-                <td class="text-right">{{ number_format($venta->pago_con - $venta->total, 2) }}</td>
+                <td class="text-right">$ {{ number_format($venta->pago_con - $venta->total, 2) }}</td>
             </tr>
             <tr>
                 <td><strong>Total</strong></td>
-                <td class="text-right"><strong>{{ number_format($venta->total, 2) }}</strong></td>
+                <td class="text-right"><strong>$ {{ number_format($venta->total, 2) }}</strong></td>
             </tr>
         </table>
 

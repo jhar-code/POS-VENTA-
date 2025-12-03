@@ -15,6 +15,12 @@
                 </div>
             </div>
 
+            <div class="card">
+                <div class="card-body">
+                    @include('profile.partials.two-factor-authentication-form')
+                </div>
+            </div>
+
             {{-- <div class="card">
                 <div class="card-body">
                     @include('profile.partials.delete-user-form')

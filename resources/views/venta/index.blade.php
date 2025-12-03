@@ -31,7 +31,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <h3>Total: <span id="total_pagar">0.00</span></h3>
+                        <h3>Total: $ <span id="total_pagar">0.00</span></h3>
                     </h5>
                     <button class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -85,7 +85,7 @@
                         <div class="form-group col-md-4">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Pago con</span>
+                                    <span class="input-group-text">Pago con $</span>
                                 </div>
                                 <input id="pago_con" class="form-control" type="number" step="0.01" min="0.01"
                                     placeholder="0.00" oninput="calcularCambio()">
@@ -95,7 +95,7 @@
                         <div class="form-group col-md-4">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Cambio</span>
+                                    <span class="input-group-text">Cambio $</span>
                                 </div>
                                 <input id="cambio" class="form-control" type="text" placeholder="0.00" disabled>
                             </div>

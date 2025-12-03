@@ -36,7 +36,14 @@ class DatatableController extends Controller
             ->orderBy('productos.id', 'desc')
             ->get();
 
-        return DataTables::of($products)->toJson();
+        return DataTables::of($products)
+            ->editColumn('precio_compra', function ($product) {
+                return '$ ' . number_format($product->precio_compra, 2);
+            })
+            ->editColumn('precio_venta', function ($product) {
+                return '$ ' . number_format($product->precio_venta, 2);
+            })
+            ->toJson();
     }
 
     public function clients()
@@ -74,10 +81,10 @@ class DatatableController extends Controller
                 return $movimiento->stock_actual;
             })
             ->addColumn('precio_unitario', function ($movimiento) {
-                return number_format($movimiento->precio_unitario, 2);
+                return '$ ' . number_format($movimiento->precio_unitario, 2);
             })
             ->addColumn('total', function ($movimiento) {
-                return number_format($movimiento->cantidad * $movimiento->precio_unitario, 2);
+                return '$ ' . number_format($movimiento->cantidad * $movimiento->precio_unitario, 2);
             })
             ->addColumn('origen', function ($movimiento) {
                 return ucfirst($movimiento->origen);
@@ -121,7 +128,7 @@ class DatatableController extends Controller
             $foto = ($gasto->foto) ? asset('storage/' . $gasto->foto) : null;
             $data[] = [
                 'id' => $gasto->id,
-                'monto' => number_format($gasto->monto, 2),
+                'monto' => '$ ' . number_format($gasto->monto, 2),
                 'descripcion' => $gasto->descripcion,
                 'foto' => $foto,
                 'usuario' => $gasto->usuario->name,
@@ -141,7 +148,7 @@ class DatatableController extends Controller
         foreach ($sales as $venta) {
             $data[] = [
                 'id' => $venta->id,
-                'total' => number_format($venta->total, 2),
+                'total' => '$ ' . number_format($venta->total, 2),
                 'cliente' => $venta->cliente->nombre,
                 'user' => $venta->user->name,
                 'metodo' => $venta->metodo,
@@ -168,10 +175,10 @@ class DatatableController extends Controller
 
             $data[] = [
                 'id' => $credito->id,
-                'total' => number_format($credito->monto, 2),
+                'total' => '$ ' . number_format($credito->monto, 2),
                 'cliente' => $credito->cliente->nombre,
-                'abonado' => number_format($abonado, 2, '.', ''),
-                'restante' => number_format($restante, 2, '.', ''),
+                'abonado' => '$ ' . number_format($abonado, 2, '.', ''),
+                'restante' => '$ ' . number_format($restante, 2, '.', ''),
                 'fecha' => $credito->created_at->format('Y-m-d H:i:s'),
             ];
         }
@@ -188,8 +195,13 @@ class DatatableController extends Controller
             ->orderBy('compras.id', 'desc')
             ->whereIn('compras.estado', [1, 2])  // Cambio aquí
             ->where('compras.id_usuario', $id_user)
+
             ->get();
-        return DataTables::of($compras)->toJson();
+        return DataTables::of($compras)
+            ->editColumn('total', function ($compra) {
+                return '$ ' . number_format($compra->total, 2);
+            })
+            ->toJson();
     }
 
     public function cotizaciones()
@@ -198,7 +210,11 @@ class DatatableController extends Controller
         $cotizaciones = Cotizacion::join('clientes', 'cotizaciones.id_cliente', '=', 'clientes.id')
             ->select('cotizaciones.*', 'clientes.nombre')
             ->orderBy('cotizaciones.id', 'desc')->where('cotizaciones.id_usuario', $id_user)->get();
-        return DataTables::of($cotizaciones)->toJson();
+        return DataTables::of($cotizaciones)
+            ->editColumn('total', function ($cotizacion) {
+                return '$ ' . number_format($cotizacion->total, 2);
+            })
+            ->toJson();
     }
 
     public function cajas()
@@ -206,6 +222,20 @@ class DatatableController extends Controller
         $id_user = Auth::id();
         $cajas = Caja::select('id', 'monto_inicial', 'fecha_apertura', 'fecha_cierre', 'estado', 'compras', 'gastos', 'ventas')
             ->orderBy('id', 'desc')->where('id_usuario', $id_user)->get();
-        return DataTables::of($cajas)->toJson();
+
+        return DataTables::of($cajas)
+            ->editColumn('monto_inicial', function ($caja) {
+                return '$ ' . number_format($caja->monto_inicial, 2);
+            })
+            ->editColumn('compras', function ($caja) {
+                return '$ ' . number_format($caja->compras, 2);
+            })
+            ->editColumn('gastos', function ($caja) {
+                return '$ ' . number_format($caja->gastos, 2);
+            })
+            ->editColumn('ventas', function ($caja) {
+                return '$ ' . number_format($caja->ventas, 2);
+            })
+            ->toJson();
     }
 }
